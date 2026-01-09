@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f9fc; /* Light background */
+            color: #333; /* Darker text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #ffffff; /* White background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        .signup-form {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold; /* Bold labels */
+            color: #007bff; /* Primary color for labels */
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s; /* Smooth transition */
+        }
+
+        input:focus {
+            border-color: #007bff; /* Highlight border on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007bff; /* Primary button color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Font size for buttons */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker button on hover */
+        }
+
+        .error-message {
+            color: red; /* Error message color */
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s; /* Smooth transition for links */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 480px) {
+            .container {
+                margin: 20px; /* Adjust margin for smaller screens */
+                padding: 15px; /* Reduce padding */
+            }
+
+            button {
+                padding: 10px; /* Smaller button padding */
+                font-size: 14px; /* Smaller font size */
+            }
+
+            input[type="text"], input[type="email"], input[type="password"] {
+                padding: 10px; /* Smaller input padding */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form th:action="@{/register}" method="post" class="signup-form" th:object="${user}">
+            <div th:if="${error}" class="error-message" th:text="${error}"></div>
+            <h2>Register</h2>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <p th:text="${message}" class="error-message"></p>
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+            <div class="form-group">
+                <p>
+                    Already a User? <a th:href="@{/login}">Login</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

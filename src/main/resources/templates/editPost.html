@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc; /* Light background */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333; /* Dark text color */
+            margin-bottom: 20px; /* Space below heading */
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff; /* White background for the form */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555; /* Softer text color */
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 4px;
+            font-size: 16px; /* Consistent font size */
+            box-sizing: border-box; /* Include padding and border in element's total width/height */
+        }
+
+        textarea {
+            height: 150px; /* Fixed height for textarea */
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff; /* Blue button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px; /* Larger button text */
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff; /* Link color */
+            text-decoration: none;
+            transition: color 0.3s; /* Smooth transition for links */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+            color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em; /* Smaller heading on mobile */
+            }
+            input[type="text"], textarea {
+                font-size: 14px; /* Smaller font size on mobile */
+            }
+            button {
+                font-size: 16px; /* Smaller button text on mobile */
+            }
+            a {
+                font-size: 14px; /* Smaller link text on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Post</h1>
+    <form th:action="@{/posts/update/{id}(id=${post.id})}" th:method="post">
+        <input type="hidden" th:field="${post.id}" />
+
+        <label for="title">Title:</label> 
+        <input type="text" name="title" th:field="${post.title}" id="title" required />
+
+        <label for="content">Content:</label>
+        <textarea th:field="${post.content}" name="content" id="content" required></textarea>
+
+        <label for="author">Author:</label> 
+        <input type="text" name="author" th:field="${post.author}" id="author" 
+               th:readonly="${role=='ROLE_AUTHOR'}" required />
+
+        <label for="tagsInput">Tags (comma-separated):</label> 
+        <input name="tag" th:value="${tagSet}" type="text" id="tagsInput" placeholder="e.g. tag1, tag2, tag3" />
+
+        <!-- Submit Button -->
+        <button type="submit">Update Post</button>
+    </form>
+
+    <!-- Back to Posts Link -->
+    <a href="/posts">Back to Posts</a>
+</body>
+</html>

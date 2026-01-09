@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #eef2f3; /* Softer background */
+        }
+
+        .post-container {
+            border: 1px solid #ddd;
+            padding: 30px; /* Increased padding for more space */
+            border-radius: 10px;
+            background-color: #ffffff; /* White background for post */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px; /* Increased font size */
+            border-bottom: 2px solid #007bff; /* Underline effect */
+            padding-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #555; /* Softer text color */
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            margin-right: 10px;
+            transition: color 0.3s; /* Smooth transition for hover */
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3; /* Darker blue on hover */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 15px; /* Increased padding */
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s; /* Smooth transition for hover */
+        }
+
+        ul li:hover {
+            background-color: #e9ecef; /* Highlight on hover */
+        }
+
+        form {
+            margin-top: 30px; /* More space above the form */
+            width: 100%;
+            max-width: 600px; /* Limit the form width */
+            margin-left: auto; /* Center form */
+            margin-right: auto; /* Center form */
+        }
+
+        form input, form textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px; /* More space between inputs */
+            padding: 10px; /* Increased padding */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s; /* Smooth transition */
+        }
+
+        form input:focus, form textarea:focus {
+            border-color: #007bff; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        form button {
+            background-color: #007bff; /* Blue button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        form button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s; /* Smooth transition for hover */
+        }
+
+        .back-link:hover {
+            color: #0056b3; /* Darker blue on hover */
+        }
+
+        h3 {
+            margin-top: 40px; /* Space before comments section */
+            color: #333;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .post-container {
+                padding: 20px; /* Reduced padding for smaller screens */
+            }
+
+            h1 {
+                font-size: 24px; /* Adjust header font size */
+            }
+
+            form {
+                width: 100%; /* Full width for smaller screens */
+            }
+
+            form input, form textarea {
+                padding: 8px; /* Reduced padding */
+            }
+
+            form button {
+                padding: 8px 16px; /* Adjust button padding */
+            }
+
+            h3 {
+                font-size: 20px; /* Smaller font size for headings */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 20px; /* Further adjust header font size */
+            }
+
+            p {
+                font-size: 14px; /* Smaller text for paragraphs */
+            }
+
+            form input, form textarea {
+                padding: 6px; /* Further reduced padding */
+            }
+
+            form button {
+                padding: 6px 12px; /* Adjust button padding */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="post-container">
+        <h1 th:text="${post.title}"></h1>
+        <p>
+            <span th:text="${post.author}"></span>, <span th:text="${post.updatedAt}"></span>
+        </p>
+        <p>
+            Tags: <span th:each="tag, iterStat : ${post.tags}">
+                <span th:text="${tag.name}"></span><span th:if="${!iterStat.last}">,</span>
+            </span>
+        </p>
+        <p th:text="${post.content}"></p>
+        <a th:href="@{/posts/edit/{id}(id=${post.id})}">Edit Post</a> 
+        <a th:href="@{/posts/delete/{id}(id=${post.id})}">Delete Post</a>
+    </div>
+
+    <h3>Comments</h3>
+    <ul>
+        <li th:each="comment : ${post.comments}">
+            <p>
+                <span th:text="${comment.name}"></span>, <span th:text="${comment.updatedAt}"></span>
+            </p>
+            <p th:text="${comment.comment}"></p> 
+            <a th:href="@{/comments/edit/{id}(id=${comment.id})}">Edit Comment</a> 
+            <a th:href="@{/comments/delete/{id}(id=${comment.id})}">Delete Comment</a>
+        </li>
+    </ul>
+
+    <form th:action="@{/comments/add/{postId}(postId=${post.id})}" method="post">
+        <input type="text" name="name" placeholder="Name" required /> 
+        <input type="email" name="email" placeholder="Email" required />
+        <textarea name="comment" placeholder="Comment" required></textarea>
+        <button type="submit">Add Comment</button>
+    </form>
+
+    <a href="/posts" class="back-link">Back to List</a>
+
+</body>
+</html>

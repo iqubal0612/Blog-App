@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc; /* Light background */
+            color: #333; /* Darker text color */
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #ff4d4d; /* Red color for error */
+            margin-bottom: 20px; /* Space below heading */
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px; /* Space below paragraph */
+        }
+        a {
+            color: #007bff; /* Primary link color */
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s; /* Smooth color transition */
+        }
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+            color: #0056b3; /* Darker blue on hover */
+        }
+        /* Responsive Styles */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em; /* Smaller heading on mobile */
+            }
+            p {
+                font-size: 1em; /* Smaller text on mobile */
+            }
+            a {
+                font-size: 1em; /* Smaller link text on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>403 - Forbidden</h1>
+    <p>Sorry, you don't have permission to perform this action.</p>
+    <p><a th:href="@{/posts}">Go back to the posts page</a></p>
+</body>
+</html>

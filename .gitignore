@@ -1,0 +1,61 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### VS Code ###
+.vscode/
+
+# Maven target directory
+/target/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Generated files
+*.jar
+*.war
+*.ear
+
+# Eclipse specific files
+.project
+.classpath
+.settings/
+
+# Spring Boot specific
+.env
+/spring-boot-devtools.properties
+
+# PostgreSQL database dumps
+*.sql
+
+# Thymeleaf specific (if using any cache)
+.cache/
+templates/.cache/
+
+# Logs and temporary files created during Spring Boot execution
+spring.log
+
+# Generated metadata or config files
+*.metadata
+*.config
+
